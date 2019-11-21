@@ -1,0 +1,43 @@
+<h1>
+    To Do List</h1>
+<!-- Show cards in unordered list. -->
+<div>
+    <table class="table">
+        <tr>
+            <th style="width: 3%">#</th>
+            <th style="width: 10%">Task</th>
+            <th style="width: 3%">Status</th>
+            <th style="width: 5%">Operation</th>
+        </tr>
+        <tr *ngFor="let task of tasks;let i = index">
+            <td>{{i+1}}.</td>
+            <td>
+                <p>{{task.message}}</p>
+            </td>
+            <td *ngIf="task.done; else elseBlock">finished</td>
+            <ng-template #elseBlock>
+                <td>on going</td>
+            </ng-template>
+            <td>
+                <button appBtnDirect style="width: 65%" [ngClass]="getStyle(task.done)" class="btn mr-1" (click)="toggleDone(i)" *ngIf="task.done; else elseBlock1">Unmark Finished</button>
+                <ng-template #elseBlock1>
+                    <button appBtnDirect style="width: 65%" [ngClass]="getStyle(task.done)" class="btn mr-1" (click)="toggleDone(i)">Mark Finished</button>
+                </ng-template>
+                <button class="btn btn-danger" (click)="remove(i)">remove</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input appInputDirect class="form-control" style="width: 100%" [(ngModel)]="newMessage" />
+            </td>
+            <td>
+
+                <button class="btn btn-success" style="width: 100%" (click)="add()">add</button>
+            </td>
+
+
+        </tr>
+    </table>
+
+
+</div>
